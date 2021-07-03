@@ -1,0 +1,125 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Thông tin người lao động</strong>
+        </div>
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="addThongTin">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="soThe" [class.text-danger]="addThongTin.controls.soThe?.hasError('required') && addThongTin.controls.soThe?.touched">Số thẻ<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" mask="00000" formControlName="soThe" id="soThe"  name="soThe"  class="form-control" placeholder="Nhập số thẻ.." maxlength="5">
+              </div>
+
+              <label class="col-md-3 col-form-label" for="hoTen" [class.text-danger]="addThongTin.controls.hoTen?.hasError('required') && addThongTin.controls.hoTen?.touched">Họ và Tên<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" formControlName="hoTen" id="hoTen" name="hoTen" class="form-control input-upper" placeholder="Nhập họ và tên..">
+              </div>
+
+              <label class="col-md-3 col-form-label" for="sdtCaNhan"
+              [class.text-danger]=" addThongTin.controls.sdtCaNhan?.errors && addThongTin.controls.sdtCaNhan?.touched">Số điện thoại cá nhân<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" mask="0000000000" formControlName="sdtCaNhan" id="sdtCaNhan"  name="sdtCaNhan" class="form-control" placeholder="Nhập số điện thoại.." maxlength="10" minlength="10">
+              </div>
+              <label class="col-md-3 col-form-label" for="loaiDT"
+              [class.text-danger]="addThongTin.controls.loaiDT?.hasError('required') && addThongTin.controls.loaiDT?.touched">Loại điện thoại đang sử dụng<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <select class="form-control" formControlName="loaiDT" id="sel1">
+                  <option value="Điện thoại thông minh">Điện thoại thông minh</option>
+                  <option value="Điện thoại thường">Điện thoại thường</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="soCMND"
+              [class.text-danger]="addThongTin.controls.soCMND?.hasError('required') && addThongTin.controls.soCMND?.touched">Số CMND hoặc thẻ căn cước<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" mask="0*" formControlName="soCMND" id="soCMND"  name="soCMND" class="form-control" placeholder="Nhập số CMND, thẻ căn cước.." maxlength="12">
+              </div>
+            </div>
+            <p [class.text-danger]="addThongTin.controls.soNhaTT?.hasError('required') && addThongTin.controls.soNhaTT?.touched">Địa chỉ thường trú: <span class="red_star">  *</span></p>
+            <div class="form-group row">
+              <div class="col-md-3 mr-b-5" >
+                <div class="col-md-3 alert alert-danger" role="alert"
+                  *ngIf="addThongTin.controls.tinhTT?.hasError('required') && addThongTin.controls.tinhTT?.touched" >
+                  Vui lòng chọn Tính / Thành phố
+                </div>
+                <ng-select2 [data]="listTinh" formControlName="tinhThuongTru" (valueChanged)="getDSHuyen($event, 1)" width="100%" id="tinhThuongTru" name="tinhThuongTru" placeholder="Chọn Tỉnh/Thành phố">
+                </ng-select2 >
+              </div>
+
+              <div class="col-md-3 mr-b-5" >
+                <ng-select2 [data]="listHuyenTT" formControlName="huyenThuongTru" (valueChanged)="getDSXa($event, 1)" width="100%" id="huyenThuongTru" name="huyenThuongTru" placeholder="Chọn Quận/Huyện">
+                </ng-select2 >
+              </div>
+              <div class="col-md-3 mr-b-5" >
+                <ng-select2 [data]="listXaTT" formControlName="xaThuongTru" width="100%" id="xaThuongTru" name="xaThuongTru" placeholder="Chọn Xã/Phường/Thị Trấn">
+                </ng-select2 >
+              </div>
+              <div class="col-md-3">
+                <input type="text" formControlName="soNhaThuongTru" id="soNhaThuongTru"  name="soNhaThuongTru" class="form-control" placeholder="Số nhà, đường, tổ, khu phố...">
+              </div>
+            </div>
+
+            <p [class.text-danger]="addThongTin.controls.soNhaTamTru?.hasError('required') && addThongTin.controls.soNhaTamTru?.touched">Địa chỉ tạm trú: <span class="red_star">  *</span> <br>
+              <i>(Nếu không tạm trú thì vẫn ghi địa chỉ thường trú vào đây.)</i>
+            </p>
+            <div class="form-group row">
+              <div class="col-md-3 mr-b-5" >
+                <ng-select2 [data]="listTinh" formControlName="tinhTamTru" (valueChanged)="getDSHuyen($event, 2)" width="100%" id="tinhTamTru" name="tinhTamTru" placeholder="Chọn Tỉnh/Thành phố">
+                </ng-select2 >
+              </div>
+
+              <div class="col-md-3 mr-b-5" >
+                <ng-select2 [data]="listHuyenTamTru" formControlName="huyenTamTru" (valueChanged)="getDSXa($event, 2)" width="100%" id="huyenTamTru" name="huyenTamTru" placeholder="Chọn Quận/Huyện">
+                </ng-select2 >
+              </div>
+              <div class="col-md-3 mr-b-5" >
+                <ng-select2 [data]="listXaTamTru" formControlName="xaTamTru" width="100%" id="xaTamTru" name="xaTamTru" placeholder="Chọn Xã/Phường/Thị Trấn">
+                </ng-select2 >
+              </div>
+              <div class="col-md-3">
+                <input type="text" formControlName="soNhaTamTru" id="soNhaTamTru"  name="soNhaTamTru" class="form-control" placeholder="Số nhà, đường, tổ, khu phố...">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="hoTenNguoiThan"
+              [class.text-danger]="addThongTin.controls.hoTenNguoiThan?.errors && addThongTin.controls.hoTenNguoiThan?.touched">Họ và tên người thân<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" formControlName="hoTenNguoiThan" id="hoTenNguoiThan" name="hoTenNguoiThan" class="form-control input-upper" placeholder="Nhập họ và tên người thân..">
+              </div>
+
+              <label class="col-md-3 col-form-label" for="mqhNguoiThan"
+              [class.text-danger]="addThongTin.controls.mqhNguoiThan?.hasError('minLength') && addThongTin.controls.mqhNguoiThan?.touched">Người thân là<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <ng-select2 [data]="listMQH" formControlName="mqhNguoiThan" width="100%" id="mqhNguoiThan" name="mqhNguoiThan" placeholder="Chọn mối quan hệ">
+                </ng-select2 >
+              </div>
+
+              <label class="col-md-3 col-form-label" for="sdtNguoiThan"
+              [class.text-danger]="addThongTin.controls.sdtNguoiThan?.errors && addThongTin.controls.sdtNguoiThan?.touched">Số điện thoại người thân<span class="red_star">  *</span></label>
+              <div class="col-md-3">
+                <input type="text" mask="0000000000" formControlName="sdtNguoiThan" id="sdtNguoiThan"  name="sdtNguoiThan" class="form-control" placeholder="Nhập số điện thoại người thân.." maxlength="10">
+              </div>
+            </div>
+            <div class="row mt-2 ml-3">
+              <p class="ghichu">Ghi chú: <br>
+                   1. Nếu bạn chỉ thay đổi từ số chứng minh nhân dân (9 số) sang số căn cước công dân (12 số) thì vui lòng photo 1 bản CCCD nộp về cho tổ Tuyển dụng
+                <br>
+                   2. Nếu bạn thay đổi từ CMND sang CCCD mà trong đó có thay đổi Ngày tháng năm sinh, giới tính, họ và tên thì vui lòng đem sổ BHXH, CCCD và giấy khai sinh photo công chứng nộp về cho tổ Bảo hiểm.
+              </p>
+            </div>
+          </form>
+
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-sm btn-primary" [disabled]="!addThongTin.valid"  (click)="guiThongTin()"><i class="fa fa-check"></i> Gửi thông tin</button>
+          <button type="button" class="btn btn-sm btn-danger ml-1" (click)="resetForm(0)"><i class="fa fa-ban" ></i> Nhập lại</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

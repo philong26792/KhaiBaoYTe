@@ -1,0 +1,32 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-0">
+        <div class="card-header">
+          <!-- <strong>Export Excel</strong> -->
+          <button type="button"  (click)="exportExcel()"  class="btn btn-sm btn-primary float-left btn-excel"> <i class="fa fa-file-excel-o"></i> 
+            Export Excel </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Mời nhập mật khẩu</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <label class="col-md-3 col-form-label" for="defect-no"> Mật Khẩu: </label>
+      <div class="col-md-6">
+        <input type="password" (keyup.enter)="enterPass()" [(ngModel)]="pass" name="pass" class="form-control" placeholder="Mật khẩu..."
+          required>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
+    <button type="button" class="btn btn-success"  [disabled]="pass === ''" (click)="enterPass()">Submit</button>
+  </div>
+</ng-template>
+          <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate" [fullScreen] = "true"></ngx-spinner> 

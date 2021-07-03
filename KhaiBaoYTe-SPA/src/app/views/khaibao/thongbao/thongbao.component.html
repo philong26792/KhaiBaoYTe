@@ -1,0 +1,28 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Cập nhật thông tin người lao động</strong>
+        </div>
+        <div class="card-body">
+          <div class="col alert alert-success" *ngIf="id=='1';else error"
+            role="alert" >
+            Cập nhật thông tin thành công!
+          </div>
+
+          <ng-template #error>
+            <div class="col alert alert-danger"
+            role="alert" >
+            Cập nhật thông tin không thành công!
+          </div>
+          </ng-template>
+
+        </div>
+        <div class="card-footer">
+          <button type="button"  class="btn btn-sm btn-primary" (click)="back()"><i class="fa fa-check"></i> Quay lại</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
